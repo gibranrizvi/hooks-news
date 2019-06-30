@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import useFormValidation from './useFormValidation';
 import validateLogin from './validateLogin';
+import firebase from '../../firebase';
 
 const INITIAL_STATE = {
   name: '',
@@ -10,16 +11,29 @@ const INITIAL_STATE = {
 };
 
 function Login(props) {
+  const [login, setLogin] = useState(true);
+  const [firebaseError, setFirebaseError] = useState(null);
+
+  const authenticateUser = async () => {
+    const { name, email, password } = values;
+    try {
+      login
+        ? await firebase.login(email, password)
+        : await firebase.register(name, email, password);
+      props.history.push('/');
+    } catch (error) {
+      console.error('Authentication Error', error);
+      setFirebaseError(error.message);
+    }
+  };
+
   const {
     handleChange,
-    handleBlur,
     handleSubmit,
     values,
     errors,
     isSubmitting
-  } = useFormValidation(INITIAL_STATE, validateLogin);
-
-  const [login, setLogin] = useState(true);
+  } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
 
   return (
     <div>
@@ -37,7 +51,6 @@ function Login(props) {
         )}
         <input
           onChange={handleChange}
-          onBlur={handleBlur}
           value={values.email}
           name="email"
           type="email"
@@ -48,7 +61,7 @@ function Login(props) {
         {errors.email && <p className="error-text">{errors.email}</p>}
         <input
           onChange={handleChange}
-          onBlur={handleBlur}
+          // onBlur={handleBlur}
           value={values.password}
           name="password"
           type="password"
@@ -56,6 +69,7 @@ function Login(props) {
           className={errors.password && 'error-input'}
         />
         {errors.password && <p className="error-text">{errors.password}</p>}
+        {firebaseError && <p className="error-text">{firebaseError}</p>}
         <div className="flex mt3">
           <button
             type="submit"
