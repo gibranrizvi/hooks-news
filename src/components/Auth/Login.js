@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import useFormValidation from './useFormValidation';
 import validateLogin from './validateLogin';
@@ -88,6 +89,9 @@ function Login(props) {
           </button>
         </div>
       </form>
+      <div className="forgot-password">
+        <Link to="/forgot">Forgot your password?</Link>
+      </div>
     </div>
   );
 }
