@@ -1,5 +1,7 @@
 import fb from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
+
 import firebaseConfig from './config';
 
 // Initialize Firebase
@@ -8,6 +10,7 @@ class Firebase {
   constructor() {
     fb.initializeApp(firebaseConfig);
     this.auth = fb.auth();
+    this.db = fb.firestore();
   }
 
   register = async (name, email, password) => {
