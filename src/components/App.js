@@ -14,7 +14,6 @@ import firebase, { FirebaseContext } from '../firebase';
 
 function App() {
   const user = useAuth();
-  console.log({ user });
 
   return (
     <BrowserRouter>
@@ -24,13 +23,13 @@ function App() {
           <div className="route-container">
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/new/1" />} />
-              <Route path="/create" component={CreateLink} />
-              <Route path="/login" component={Login} />
-              <Route path="/forgot" component={ForgotPassword} />
-              <Route path="/search" component={SearchLinks} />
-              <Route path="/top" component={LinkList} />
-              <Route path="/new/:page" component={LinkList} />
-              <Route path="/link/:linkId" component={LinkDetail} />
+              <Route exact path="/create" component={CreateLink} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/forgot" component={ForgotPassword} />
+              <Route exact path="/search" component={SearchLinks} />
+              <Route exact path="/top" component={LinkList} />
+              <Route exact path="/new/:page" component={LinkList} />
+              <Route exact path="/link/:linkId" component={LinkDetail} />
             </Switch>
           </div>
         </div>

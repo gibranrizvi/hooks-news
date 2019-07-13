@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import useFormValidation from './useFormValidation';
 import validateLogin from './validateLogin';
-import firebase from '../../firebase';
+import { FirebaseContext } from '../../firebase';
 
 const INITIAL_STATE = {
   name: '',
@@ -12,6 +12,7 @@ const INITIAL_STATE = {
 };
 
 function Login(props) {
+  const { firebase } = useContext(FirebaseContext);
   const [login, setLogin] = useState(true);
   const [firebaseError, setFirebaseError] = useState(null);
 
