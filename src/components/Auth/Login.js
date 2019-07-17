@@ -63,7 +63,6 @@ function Login(props) {
         {errors.email && <p className="error-text">{errors.email}</p>}
         <input
           onChange={handleChange}
-          // onBlur={handleBlur}
           value={values.password}
           name="password"
           type="password"
