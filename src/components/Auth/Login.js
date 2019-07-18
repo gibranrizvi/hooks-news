@@ -52,6 +52,7 @@ function Login(props) {
           />
         )}
         <input
+          autoFocus
           onChange={handleChange}
           value={values.email}
           name="email"
