@@ -43,6 +43,7 @@ function Login(props) {
       <form onSubmit={handleSubmit} className="flex flex-column">
         {!login && (
           <input
+            autoFocus={!login}
             onChange={handleChange}
             value={values.name}
             name="name"
@@ -52,7 +53,7 @@ function Login(props) {
           />
         )}
         <input
-          autoFocus
+          autoFocus={login}
           onChange={handleChange}
           value={values.email}
           name="email"

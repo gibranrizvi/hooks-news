@@ -24,6 +24,7 @@ function CreateLink(props) {
           id: user.uid,
           name: user.displayName
         },
+        voteCount: 0,
         votes: [],
         comments: [],
         created: Date.now()
@@ -43,6 +44,7 @@ function CreateLink(props) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-column mt3">
       <input
+        autoFocus
         onChange={handleChange}
         value={values.description}
         name="description"

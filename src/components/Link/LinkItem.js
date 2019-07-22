@@ -27,9 +27,11 @@ function LinkItem({ link, index, showCount, history }) {
             }
           };
           const updatedVotes = [...previousVotes, vote];
+          const voteCount = updatedVotes.length;
 
           linkRef.update({
-            votes: updatedVotes
+            votes: updatedVotes,
+            voteCount
           });
         }
       });
@@ -71,16 +73,20 @@ function LinkItem({ link, index, showCount, history }) {
         </div>
         <div className="ml1">
           <div className="">
-            {link.description}{' '}
+            <a href={link.url} target="_blank" className="black no-underline">
+              {link.description}
+            </a>{' '}
             <span className="link">({getDomain(link.url)})</span>
           </div>
           <div className="f6 lh-copy gray">
-            {link.votes.length}
-            {link.votes.length !== 1 ? ' votes' : ' vote'} by{' '}
-            {link.postedBy.name} {distanceInWordsToNow(link.created)} {' | '}
+            {link.voteCount}
+            {link.voteCount !== 1 ? ' votes' : ' vote'} by {link.postedBy.name}{' '}
+            {distanceInWordsToNow(link.created)} {' | '}
             <Link to={`/link/${link.id}`}>
               {link.comments.length > 0
-                ? `${link.comments.length} comments`
+                ? `${link.comments.length} comment${
+                    link.comments.length !== 1 ? 's' : ''
+                  }`
                 : 'discuss'}
             </Link>
             {postedByAuthUser && (
